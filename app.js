@@ -29,11 +29,6 @@ recognition.onresult = function (event) {
         readOut("opening youtube!");
         window.open("https://www.youtube.com/");
     }
-    if (transcript.includes("open fire base") ||
-        transcript.includes("open firebase")) {
-        readOut("opening firebase!");
-        window.open("https://www.firebase.com/");
-    }
     if (transcript.includes("open tcgplayer")) {
         readOut("opening card database!");
         window.open("https://www.tcgplayer.com/")
@@ -51,11 +46,10 @@ recognition.onresult = function (event) {
     }
     // youtube
     if (transcript.includes("open youtube")) {
-        readOut("opening youtube sir");
+        readOut("opening youtube");
         window.open("https://www.youtube.com/");
         // windowsB.push(a)
     }
-
     if (transcript.includes("play")) {
         let playStr = transcript.split("");
         playStr.splice(0, 5);
@@ -65,9 +59,10 @@ recognition.onresult = function (event) {
         window.open(`https://www.youtube.com/search?q=${playStr}`);
         // windowsB.push(a);
     }
-    if (transcript.includes(`effect of`)) {
+    if (transcript.includes("effect of")) {
         let cardName = transcript.split(" ");
-        cardName.splice(0, 2); // Remove "what does"
+        transcript.replace(/['"]+/g, '').trim();
+        cardName.splice(0, 2);
         console.log(cardName);
         cardName = cardName.join(" ");
         fetchCardInfo(cardName);
@@ -120,31 +115,13 @@ function readOut(message) {
 //example
 speakBtn.addEventListener("click", () => {
     // readOut("hello, my name is Yugi, it's time to DUEL!");
-    readOut("Hello Bao");
+    readOut("Hello Duelist!");
 });
 
 window.onload = function () {
     readOut(" ");
 }
 
-function fetchCardInfo(cardName) {
-    const apiUrl = `https://db.ygoprodeck.com/api/v7/cardinfo.php?name=${encodeURIComponent(cardName)}`;
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.data && data.data.length > 0) {
-                const card = data.data[0];
-                const cardDescription = `${card.name} is a ${card.type} with ${card.atk} attack and ${card.def} defense. ${card.desc}`;
-                readOut(cardDescription);
-            } else {
-                readOut(`Sorry, I couldn't find any information about ${cardName}.`);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching card data:', error);
-            readOut('There was an error fetching the card information.');
-        });
-}
 // function fetchCardInfo(cardName) {
 //     const apiUrl = `https://db.ygoprodeck.com/api/v7/cardinfo.php?name=${encodeURIComponent(cardName)}`;
 //     fetch(apiUrl)
@@ -152,7 +129,7 @@ function fetchCardInfo(cardName) {
 //         .then(data => {
 //             if (data.data && data.data.length > 0) {
 //                 const card = data.data[0];
-//                 const cardDescription = card.desc;
+//                 const cardDescription = `${card.name} is a ${card.type} with ${card.atk} attack and ${card.def} defense. ${card.desc}`;
 //                 readOut(cardDescription);
 //             } else {
 //                 readOut(`Sorry, I couldn't find any information about ${cardName}.`);
@@ -163,3 +140,26 @@ function fetchCardInfo(cardName) {
 //             readOut('There was an error fetching the card information.');
 //         });
 // }
+//This function fetches the local db, and if there is a match, read out the effect of card. 
+function fetchCardInfo(cardName) {
+    // Path to your JSON file; this could also be a URL
+    const filePath = './db/YGO.json';
+    console.log(filePath);
+    fetch(filePath)
+        .then(response => response.json())
+        .then(data => {
+            const cards = data.data;
+            const card = cards.find(c => c.name.toLowerCase().replace(/["]+/g, '').trim() === cardName.toLowerCase());
+            if (card) {
+                const cardDescription = `${card.name} is a ${card.type} with ${card.atk} attack and ${card.def} defense. ${card.desc}`;
+                readOut(cardDescription);
+            } else {
+                readOut(`Sorry, I couldn't find any information about ${cardName}.`);
+                console.log(cardName);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching file:', error);
+            readOut('There was an error fetching the card information.');
+        });
+}
