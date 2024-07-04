@@ -7,54 +7,74 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/fuse.js"></script> -->
 </head>
 
 <body>
     <header>
-        <div class="header">
-            <h1>YugiVoice</h1>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About YGO API</a></li>
-                    <li><a href="#">TCG Player</a></li>
-                    <li><a href="#">About</a></li>
-                </ul>
-            </nav>
+        <div class="head">
+            <div class="hero">
+                <h1>Yu-gi-Voice</h1>
+                <nav class="navbar">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About YGO API</a></li>
+                        <li><a href="#">TCG Player</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </header>
     <div class="about">
-        <h2>Welcome Duelists</h2>
-        <p>
-            Are you tired of manually searching for Yu-Gi-Oh card names every time on the Neuron app or TCGPlayer?
-            With this application, you can easily query cards with a single click and quickly get the effects of a card
-            (when it works)!
-        </p>
-        <p>
-            As this is an early development idea, please let me know if you encounter any bugs or have suggestions for
-            improvements to enhance the query functionality.
-        </p>
-        <p>
-            I would also like to give a big thanks to YGO Pro for providing an extensive database of the most recent card
-            information! Due to the requirements of their API, I have decided to download the entire database, and it will
-            need to be manually updated.
-        </p>
+        <div class="left">
+            <h2>Welcome Duelists</h2>
+            <p>
+                Are you tired of manually searching for Yu-Gi-Oh card names every time on the Neuron app or TCGPlayer?
+                With this application, you can easily query cards with a single click and quickly get the effects of a
+                card
+                (when it works)!
+            </p>
+            <p>
+                As this is an early development idea, please let me know if you encounter any bugs or have suggestions
+                for
+                improvements to enhance the query functionality.
+            </p>
+        </div>
+        <div class="right">
+            <h2>End Comments</h2>
+            <p>
+                I would also like to give a big thanks to YGO Pro for providing an extensive database of the most recent
+                card
+                information! Due to the requirements of their API, I have decided to download the entire database, and
+                it
+                will
+                need to be manually updated.
+            </p>
+        </div>
     </div>
 
     <main>
-        <p>
-            To start, click on "Search Card" and say "effect of" followed by the entire card name (e.g., "effect of Blue-Eyes
-            White Dragon").
-            If the query is correct, an enlarged photo of the card will appear, and a voice assistant will explain the card's
-            effect.
-            I hope you all enjoy using this application I just thought of randomly!
-        </p>
-        <div class="photo-holder">
-            
+        <div class="voice-body">
+            <p>
+                To start, click on "Search Card" and say "card" followed by the entire card name (e.g., "card
+                Blue-Eyes
+                White Dragon").
+                If the query is correct, an enlarged photo of the card will appear, and a voice assistant will explain
+                the
+                card's
+                effect.
+                I hope you all enjoy using this application I just thought of randomly!
+            </p>
+            <div class="card-holder">
+                <span></span>
+            </div>
+            <div class="btn">
+                <button id="speech">Search Card</button>
+                <button id="no-speech">No Speach</button>
+                <button id="motivation">Motivation</button>
+            </div>
         </div>
-        <button id="start">vr start</button>
-        <button id="stop">vr stop</button>
-        <button id="speak">speak out</button>
     </main>
 </body>
 
