@@ -122,6 +122,11 @@ window.onload = function () {
     readOut(" ");
 }
 
+
+//This is for fetching the info from API
+//Chose to create local db because limitations of API noted in documentation
+//Will be needed if no updates made as new sets come out
+
 // function fetchCardInfo(cardName) {
 //     const apiUrl = `https://db.ygoprodeck.com/api/v7/cardinfo.php?name=${encodeURIComponent(cardName)}`;
 //     fetch(apiUrl)
@@ -140,6 +145,7 @@ window.onload = function () {
 //             readOut('There was an error fetching the card information.');
 //         });
 // }
+
 //This function fetches the local db, and if there is a match, read out the effect of card. 
 function fetchCardInfo(cardName) {
     // Path to your JSON file; this could also be a URL
