@@ -1,9 +1,9 @@
 // import Fuse from 'fuse.js';
 
 //elements
-const startBtn = document.querySelector("#start");
-const stopBtn = document.querySelector("#stop");
-const speakBtn = document.querySelector("#speak");
+const startBtn = document.querySelector("#speech");
+const stopBtn = document.querySelector("#no-speech");
+const speakBtn = document.querySelector("#motivation");
 
 //Speech recognition setup
 //this is for browser speech recognition
@@ -69,21 +69,6 @@ recognition.onresult = function (event) {
         cardName = cardName.join(" ");
         fetchCardInfo(cardName);
     }
-    // const regex = /what does (.+) do\?/;
-    // const match = transcript.match(regex);
-    // if (match && match[1]) {
-    //     const cardName = match[1];
-    //     fetchCardInfo(cardName);
-    // }
-    // else {
-    //     const regex = /what does (.+) do\?/;
-    //     const match = transcript.match(regex);
-    //     if (match && match[1]) {
-    //         const cardName = match[1];
-    //         console.log("Detected 'what does [card name] do?'", cardName);
-    //         fetchCardInfo(cardName);
-    //     }
-    // }
 };
 
 //SR stop
@@ -128,118 +113,6 @@ window.onload = function () {
 //This is for fetching the info from API
 //Chose to create local db because limitations of API noted in documentation
 //Will be needed if no updates made as new sets come out
-
-// function fetchCardInfo(cardName) {
-//     const apiUrl = `https://db.ygoprodeck.com/api/v7/cardinfo.php?name=${encodeURIComponent(cardName)}`;
-//     fetch(apiUrl)
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.data && data.data.length > 0) {
-//                 const card = data.data[0];
-//                 const cardDescription = `${card.name} is a ${card.type} with ${card.atk} attack and ${card.def} defense. ${card.desc}`;
-//                 readOut(cardDescription);
-//             } else {
-//                 readOut(`Sorry, I couldn't find any information about ${cardName}.`);
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error fetching card data:', error);
-//             readOut('There was an error fetching the card information.');
-//         });
-// }
-
-//This function fetches the local db, and if there is a match, read out the effect of card. 
-// function fetchCardInfo(cardName) {
-//     // Path to your JSON file; this could also be a URL
-//     const filePath = './db/YGO.json';
-//     console.log(filePath);
-//     fetch(filePath)
-//         .then(response => response.json())
-//         .then(data => {
-//             const cards = data.data;
-//             const searchString = cardName.toLowerCase().replace(/[",:\-*★]+/g, '').trim();
-//             const card = cards.find(c => c.name.toLowerCase().replace(/[",:\-*★]+/g, '').trim() === searchString);
-//             if (card) {
-//                 const cardDescription = `${card.name} is a ${card.type} with ${card.atk} attack and ${card.def} defense. ${card.desc}`;
-//                 readOut(cardDescription);
-//             }
-//             //     else {
-//             //         readOut(`Sorry, I couldn't find any information about ${cardName}.`);
-//             //         readOut(`Here is a list of matching cards:`);
-//             //         card.forEach(element => {
-
-//             //         });
-//             //         console.log(cardName);
-//             //     }
-//             // })
-//             else {
-//                 readOut(`Sorry, I couldn't find any information about ${cardName}.`);
-//                 // Handle search for partial matches
-//                 const partialMatches = cards.filter(c => c.name.toLowerCase().replace(/[",:\-*★]+/g, '').includes(searchString));
-//                 if (partialMatches.length > 0) {
-//                     readOut(`Here is a list of matching cards:`);
-//                     partialMatches.forEach(element => {
-//                         console.log(`${element.name} - ${element.type}`);
-//                         readOut(`${element.name} - ${element.type}`);
-//                     });
-//                 } else {
-//                     readOut("No matching cards found.");
-//                 }
-//                 console.log(cardName);
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error fetching file:', error);
-//             readOut('There was an error fetching the card information.');
-//         });
-// }
-
-// function fetchCardInfo(cardName) {
-//     // Path to your JSON file; this could also be a URL
-//     const filePath = './db/YGO.json';
-//     console.log(filePath);
-//     fetch(filePath)
-//         .then(response => response.json())
-//         .then(data => {
-//             const cards = data.data;
-//             // Define searchString here to ensure it's available in the right scope
-//             const searchString = cardName.toLowerCase().replace(/[",':\-*★]+/g, '').trim();
-//             const card = cards.find(c => c.name.toLowerCase().replace(/[",':\-*★]+/g, '').trim() === cardName);
-
-//             if (card) {
-//                 const cardDescription = `${card.name} is a ${card.type} with ${card.atk} attack and ${card.def} defense. ${card.desc}`;
-//                 readOut(cardDescription);
-//             } else {
-//                 readOut(`Sorry, I couldn't find any information about ${cardName}.`);
-//                 const firstWord = getFirstWord(searchString);
-//                 console.log(`query: ${firstWord}`);
-//                 // Handle search for partial matches using searchString
-//                 const partialMatches = cards.filter(c => c.name.toLowerCase().replace(/[",:\-*★]+/g, '').includes(firstWord));
-//                 if (partialMatches.length > 0) {
-//                     readOut(`Here is a list of matching cards:`);
-//                     partialMatches.forEach(element => {
-//                         console.log(`${element.name} - ${element.type}`);
-//                     });
-//                 } else {
-//                     readOut("No matching cards found.");
-//                     console.log(cardName);
-//                 }
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error fetching file:', error);
-//             readOut('There was an error fetching the card information.');
-//         });
-// }
-
-function getFirstWord(fullString) {
-    const words = fullString.split(" "); // Splits the string into an array of words
-    return words[0];
-}
-
-
-
-
 function fetchCardInfo(cardName) {
     const filePath = './db/YGO.json';
     fetch(filePath)
@@ -262,6 +135,8 @@ function fetchCardInfo(cardName) {
             if (card) {
                 const cardDescription = `${card.name} is a ${card.type} with ${card.atk} attack and ${card.def} defense. ${card.desc}`;
                 readOut(cardDescription);
+
+                displayCard(card);
             } else {
                 readOut(`Sorry, I couldn't find any information about ${cardName}.`);
                 const firstWord = getFirstWord(searchString);
@@ -285,47 +160,33 @@ function fetchCardInfo(cardName) {
         });
 }
 
+function getFirstWord(fullString) {
+    const words = fullString.split(" "); // Splits the string into an array of words
+    return words[0];
+}
 
+//this function sends back an image link for display
+function displayCard(card) {
+    const cardHolder = document.querySelector(".card-holder");
+    const cardContainer = document.createElement("div");
+    cardContainer.className = "ygo-card";
+    let cardPhoto = document.createElement("img");
+    // cardPhoto.className = "ygo-card";
+    let cardId = card.card_images[0].id;
+    cardPhoto.src = `https://images.ygoprodeck.com/images/cards/${cardId}.jpg`
+    cardPhoto.alt = card.name;
+    cardContainer.appendChild(cardPhoto);
 
+    //create the desc of the card
+    let cardDesc = document.createElement("span");
+    cardDesc.className = "ygo-desc";
+    cardDesc.textContent = `${card.name}\nType: ${card.type}\n${card.type.includes("Monster") ? `ATK: ${card.atk}\nDEF: ${card.def}\n` : "N/A"}.\n${card.desc}`;
+    cardContainer.appendChild(cardDesc);
+    cardHolder.appendChild(cardContainer);
+}
+// function displayCard(card) {
+//     const cardHolder = document.querySelector(".card-holder");
+//     let cardPhoto = document.createElement("img");
+//     cardPhoto.src = "./images/card-back.png";
 
-
-
-
-// const Fuse = require('fuse.js');
-// function fetchCardInfo(cardName) {
-//     const filePath = './db/YGO.json';
-//     console.log(filePath);  // Debugging: check the file path
-
-//     fetch(filePath)
-//         .then(response => response.json())
-//         .then(data => {
-//             const cards = data.data;
-
-//             // Configure fuse.js
-//             const options = {
-//                 keys: ['name'],
-//                 threshold: 0.199  // Adjust threshold as needed
-//             };
-//             const fuse = new Fuse(cards, options);
-//             // fuse.forEach(element => {
-//             //     console.log(element.item.name);
-//             // });
-//             // Perform fuzzy search
-//             const result = fuse.search(cardName);
-//             result.forEach(element => {
-//                 console.log(element.item.name);
-//             });
-//             if (result.length > 0) {
-//                 const card = result[0].item;  // Get the best match
-//                 const cardDescription = `${card.name} is a ${card.type} with ${card.atk} attack and ${card.def} defense. ${card.desc}`;
-//                 readOut(cardDescription);
-//             } else {
-//                 readOut(`Sorry, I couldn't find any information about ${cardName}.`);
-//                 console.log(cardName);  // Debugging: check the card name if not found
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error fetching file:', error);
-//             readOut('There was an error fetching the card information.');
-//         });
 // }

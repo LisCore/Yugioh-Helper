@@ -61,19 +61,41 @@
 }
 
 header {
-    /* display: flex;
+    /* display: grid;
+    grid-template-rows: 100px;
+    grid-template-columns: 300px 500px; */
+    display: flex;
     justify-content: center;
-    align-items: center; */
+    align-items: center;
     margin: auto;
     padding: auto;
-    width: 75%;
-    border: 1px black solid;
+    width: 100%;
+    height: 125px;
+    background-color: #219C90;
+}
+
+.head {
+    width: 80%;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 30% 70%;
 }
 
 .hero {
-    /* display: flex;
-    justify-content: space-evenly;
-    flex: 1; */
+    grid-column: 1 / 2;
+    text-align: center;
+}
+
+.nav-contain {
+    grid-column: 2 / 3;
+    text-align: center;
+    align-self: center;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 45px;
+}
+
+/* .hero {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,21 +103,21 @@ header {
     margin: auto;
     padding: auto;
     height: 7rem;
-}
+} */
 
 .hero>h1 {
     align-self: center;
+    color: black;
 }
 
-.navbar {
+/* .navbar {
     display: flex;
-    /* justify-content: flex-end; */
     align-self: flex-end;
     list-style: none;
     font-size: 1.3rem;
     margin: auto;
     padding: auto;
-}
+} */
 
 .navbar>ul {
     display: flex;
@@ -124,7 +146,9 @@ a:hover {
     color: #580069;
 }
 
-a:link {
+a:link,
+a:visited {
+    color: black;
     text-decoration: none;
 }
 
@@ -232,9 +256,72 @@ main {
     color: black;
 }
 
-.card-holder {
+/* .card-holder {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
     width: 100%;
     height: 400px;
     border: 1px solid black;
+    overflow: auto;
 }
+
+.ygo-card {
+    max-width: 200px;
+    height: 300px;
+    transition: transform 4s ease-in-out;
+}
+
+.ygo-card:hover {
+    
+} */
+.card-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+    border: 1px solid black;
+    overflow: auto;
+    perspective: 1000px;
+    /* Depth of the 3D space */
+}
+
+.ygo-card {
+    background-color: transparent;
+    width: 200px;
+    height: 300px;
+    position: relative;
+    perspective: 1000px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.ygo-card img,
+.ygo-card .ygo-desc {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Hides the back side of the card when it is facing away */
+}
+
+.ygo-card .ygo-desc:hover {
+    transform: rotateY(180deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.ygo-card:hover {
+    transform: rotateY(180deg);
+}
+
+.ygo-desc {}
